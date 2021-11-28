@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+# Sonar Server URL
+SONAR_HOST_URL=sonarcloud.io
+# Sonar sever login token for the project
+SONAR_LOGIN="eae593ea1b454c3d766ea36aae8772332da25ff3"
+# path of the repo which needs to be scanned
+REPO=$PWD
+# run sonar-cli as a docker container and publish results to the sonar server
+docker run \
+    --rm \
+    -e SONAR_HOST_URL="https://${SONAR_HOST_URL}" \
+    -e SONAR_TOKEN=$SONAR_LOGIN \
+    -v "${REPO}:/usr/src" \
+    sonarsource/sonar-scanner-cli
